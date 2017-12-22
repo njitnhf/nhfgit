@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DIV-Test</title>
+    <script src="D:\Niu\Vue\nhfgit\NHF\vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>{{ age }}</p>
+    </div>
+
+    <div id="fullnameDemo">
+        <p>Fullname: "{{ fullname }}"</p>
+        <p>Firstname: "{{ firstname }}"</p>
+        <p>Lastname: "{{ lastname }}"</p>
+    </div>
+
+    <div id="watch-example">
+        <p>
+            Ask a yes/no question:
+            <input v-model="question">
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+</body>
+
+<!-- 因为 AJAX 库和通用工具的生态已经相当丰富，Vue 核心代码没有重复 -->
+<!-- 提供这些功能以保持精简。这也可以让你自由选择自己更熟悉的工具。 -->
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message:'NHFTest',
+            age:6,
+        },
+        computed: {
+            reversedMessage:function() {
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+
+    var fullnameVM = new Vue({
+        el: '#fullnameDemo',
+        data: {
+            firstName: 'Niu',
+            lastName: 'Hefeng',
+            fullName: 'Niu Hefeng'
+        },
+        computed: {
+            fullname:{
+                get: function(){
+                return this.firstName + ' ' + this.lastName
+                },
+                set: function(newValue){
+                    var names = newValue.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                }
+            }
+        }
+    })
+
+    var watchExampleVM = new Vue({
+        el: '#watch-example',
+        data: {
+            question: '',
+            answer: '请输入问题！'
+        },
+        watch: {
+            //如果'question'发生改变，这个函数就会执行
+            question: function(newQuestion){
+                this.answer = '等待输入中...'
+                this.getAnswer()
+            }
+        },
+        methods: {
+            // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+            // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+            // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+            // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+            // 请参考：https://lodash.com/docs#debounce
+            getAnswer: _.debounce(
+                function(){
+                    if(this.question.indexof('?')=== -1){
+                        this.answer = '问题通常包含一个问号作为结尾 :-)'
+                        return
+                    }
+                    this.answer = '思考中...'
+                    var vm = this
+                    axios.get('https://yesno.wtf/api')
+                    .then(function (response){
+                        vm.answer = _.capitalize(response.data.answer)
+                    })
+                    .catch(function(error){
+                        vm.answer = 'ERROR!无法连接相应API.' + error
+                    })
+                },
+                //这是我们为判定用户停止输入等待的毫秒数
+                500
+            )
+        }
+    })
+
+</script>
+</html>
