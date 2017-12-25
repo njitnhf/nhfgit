@@ -75,6 +75,11 @@
         },
         computed: {
             detail: function(){
+                /**
+                 * 设想是当不是数字的时候发出提示，
+                 * 数字时就返回数字，但这个写法不可以，
+                 * 还需要学习
+                 * */
                 return isNaN(this.message)?'':'请输入数字'
             }
         }
