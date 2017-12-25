@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Daily Study 20171225</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        -->
+    <script src=".\vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ name }}</p>
+    </div>
+
+    <div id="example-1">
+        <input v-model.number="message" placeholder="请输入">
+        <p>输入的内容是：{{ message }}</p>
+        <p>Message: {{ detail }}</p>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+
+    <div id="example-2">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <!--
+        如果 v-model 表达式的初始值未能匹配任何选项，
+        <select> 元素将被渲染为“未选中”状态。
+        在 iOS 中，这会使用户无法选择第一个选项。
+        因为这样的情况下，iOS 不会触发 change 事件。
+        因此，更推荐像下面这样提供一个值为空的禁用选项。       
+    -->
+    <div id="example-3">
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected:{{ selected }}</span>
+    </div>
+
+    <div id="example-4">
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+</body>
+<script>
+    vm = new Vue({
+        el: '#app',
+        data: {
+            name: 'NHF!'
+        }
+    })
+
+    vm1 = new Vue({
+        el: '#example-1',
+        data: {
+            message: '',
+            checked: ''
+        },
+        computed: {
+            detail: function(){
+                return isNaN(this.message)?'':'请输入数字'
+            }
+        }
+    })
+
+    vm2 = new Vue({
+        el: '#example-2',
+        data:{
+            picked: ''
+        }
+    })
+
+    vm3 = new Vue({
+        el: '#example-3',
+        data: {
+            selected:''
+        }
+    })
+
+    vm4 = new Vue({
+        el: '#example-4',
+        data: {
+            selected: 'A',
+            options: [
+                { text: 'One', value: 'A'},
+                { text: 'Two', value: 'B'},
+                { text: 'Three', value: 'C'}
+            ]
+        }
+    })
+</script>
+</html>
