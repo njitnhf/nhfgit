@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>十二月廿六日，大晴天</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src=".\vue.js"></script>
+</head>
+<body>
+    <div>
+        <ul id="example-1">
+            <li v-for="item in items" :key="item.id">
+                {{ item.message }}
+            </li>
+        </ul>
+        <br>
+        <ul id="example-2">
+            <li v-for="(item, index) of items">
+                {{ parentMessage }} - {{ index }} - {{ item.message }}
+            </li>
+        </ul>
+        <br>
+        <ul id="v-for-object" class="demo">
+            <li v-for="value in object">
+                {{ value }}
+            </li>
+        </ul>
+    </div>
+    <br>
+    <div id="v-for-object-key-value">
+        <div v-for="(value, key) in object">
+                {{key}}: {{value}}
+        </div>           
+    </div>
+    <br>
+    <div id="v-for-object-index-key-value">
+        <div v-for="(value, key, index) in object">
+               {{index}}. {{key}}: {{value}}
+        </div>           
+    </div>
+    <br>
+    <div id="example-for-n">
+        <li v-for="n in evenNumbers">
+            {{n}}
+        </li>
+    </div>
+
+</body>
+<script>
+    //单个数组
+    example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    })
+
+    //也可以包含索引
+    example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                { message: 'AAA' },
+                { message: 'BBB' }
+            ]
+        }
+    })
+
+    //用v-for通过一个对象属性来迭代
+    new Vue({
+        el: '#v-for-object',
+        data: {
+            object: {
+                firstName: 'Niu',
+                lastName: 'Hefeng',
+                age: '25'
+            }
+        }
+    })
+
+    new Vue({
+        el: '#v-for-object-key-value',
+        data: {
+            object: {
+                firstName: 'Niu',
+                lastName: 'Hefeng',
+                age: '25'
+            }
+        }
+    })
+
+    new Vue({
+        el: '#v-for-object-index-key-value',
+        data: {
+            object: {
+                firstName: 'Niu',
+                lastName: 'Hefeng',
+                age: '25'
+            }
+        }
+    })
+
+    new Vue({
+        el: '#example-for-n',
+        data: {
+            numbers: [1, 2, 3, 4, 5]
+        },
+        computed: {
+            evenNumbers: function(){
+                return this.numbers.filter(function(number){
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+</script>
+</html>
