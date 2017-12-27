@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>组件</title>
+    </head>
+    <body>
+        <div class="box" ref="box">
+            <button @click="btn">aaaa</button>
+            {{msg1}}
+            <aaa :f="msg1" ref="aaa"></aaa>
+        </div>
+    </body>
+    <script type="text/javascript" src=".\vue.js" ></script>
+    <script>
+        var aaa={
+            data:function(){
+                return{
+                    msg2:"我是子组件"
+                }
+            },
+            props:['f'],
+            template:"<div><h3>{{f}}{{msg2}}</h3><input ref='file' type='file'></div>",
+            methods:{
+                file:function(){
+                    this.$refs.file.click();
+                }
+            }
+        }
+        var vm=new Vue({
+            el:'.box',
+            data(){
+                return{
+                  msg1:"我是父组件"
+                }
+            },
+            methods:{
+                btn:function(){
+                    this.$refs.aaa.file();
+                }
+            },
+            mounted () {
+                
+            
+            },
+            components:{
+                'aaa':aaa
+            }
+        })
+    </script>
+</html>
