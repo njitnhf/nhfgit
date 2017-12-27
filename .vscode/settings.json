@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.vue": "html"
+    },
+    "emmet.syntaxProfiles": {
+        "vue-html": "html",
+        "vue": "html"
+      }
+}
