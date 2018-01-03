@@ -23,3 +23,12 @@ function alphabet_position_better(string) {
         .join(" ") // 再把這些分割的字元組合在一起並且用空格分隔
 }
 
+function alphabetPosition_3(text) {
+    var result = "";
+    for (var i = 0; i < text.length; i++){
+      var code = text.toUpperCase().charCodeAt(i)
+      if (code > 64 && code < 91) result += (code - 64) + " ";
+    }
+  
+    return result.slice(0, result.length-1);
+  }
