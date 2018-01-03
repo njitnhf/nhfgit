@@ -17,12 +17,12 @@ function divisors(integer) {
     });
     console.log(arr);
     /**
-    if (arr.length > 1) {
-        return arr
-    } else {
-        return integer.toString() + " is prime";
-    }
-    */
+     * if (arr.length > 1) {
+     *     return arr
+     * } else {
+     *     return integer.toString() + " is prime";
+     * }
+     */
     return arr.length ? arr : integer + " is prime";
 };
 
