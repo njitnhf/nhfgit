@@ -19,3 +19,7 @@ var findFriends = el => el.length == 4;
 function friend_1(friends) {
     return friends.filter(n => n.length === 4)
 }
+
+function friend_better(friends){
+    return friends.filter(n => typeof n === 'string' && n.length === 4);
+}
