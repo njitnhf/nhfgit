@@ -34,6 +34,9 @@ function whoIsNext(names, r) {
 
 function whoIsNext(names, r) {
     var l = names.length;
-    while (r >= l) { r -= l; l *= 2; }
+    while (r >= l) {
+        r = r - l;
+        l = l * 2;
+    }
     return names[Math.ceil(names.length * r / l) - 1];
 }
