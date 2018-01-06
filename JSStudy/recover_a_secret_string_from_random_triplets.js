@@ -8,14 +8,17 @@ var recoverSecret = function (triplets) {
         fisrt_str = first(temp_str);
         console.log(fisrt_str);
         result += fisrt_str;
-        for (var j = 0; j < temp_str.length; j++) {
-            remove(temp_str[j], fisrt_str);
-        }
+        //因为去掉的肯定是第一个，所以只要目标数组删除第一个元素就可以了
+        temp_str.filter(([item]) => item == fisrt_str).forEach(tuple => tuple.shift());
+        //  for (var j = 0; j < temp_str.length; j++) {
+        //     remove(temp_str[j], fisrt_str);
+        //  }
     }
     console.log(result);
     return result;
 }
 
+//当前数组中逻辑上的的第一个字母
 var first = function (arr) {
     var first;
     for (var j = 0; j < arr.length; j++) {
@@ -35,6 +38,7 @@ var first = function (arr) {
     return first;
 }
 
+//计算不重复字母总和
 var count = function (arr) {
     var str = [];
     for (var i = 0; i < arr.length; i++) {
@@ -47,6 +51,7 @@ var count = function (arr) {
     return str.length;
 }
 
+//删除数组中对应元素
 function remove(arr, str) {
     var index;
     for (var i = 0; i < arr.length; i++) {
@@ -78,7 +83,7 @@ triplets1 = [
     ['m', 's', 'u']
 ]
 
-
+recoverSecret(triplets1);
 
 
 /**
@@ -116,4 +121,5 @@ var recoverSecret = function (triplets) {
             }))
         }
     }
+    return '';
 }
