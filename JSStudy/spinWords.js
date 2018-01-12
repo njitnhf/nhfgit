@@ -23,3 +23,12 @@ spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw"
 spinWords( "This is a test") => returns "This is a test" 
 spinWords( "This is another test" )=> returns "This is rehtona test"
  */
+
+
+ function spinWords_1(words){
+     return words.split(' ')
+            .map(word => (word.length > 4) 
+                        ? word.split('').reverse().join('') 
+                        : word)
+            .join(' ');
+ }
