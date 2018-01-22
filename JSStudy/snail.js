@@ -76,3 +76,48 @@ snail = function (array) {
     }
     return result;
 }
+
+
+
+
+snail = function (array) {
+    var res = [];
+    while (array.length) {
+        res = res.concat(array.shift())
+        array = expand(array);
+    }
+    return res;
+}
+
+
+function expand(matrix) {
+    return matrix.reduce(function (res, arr, i) {
+        arr.forEach(function (n, j) {
+            if (!res[j]) res[j] = [];
+            res[j][i] = n;
+        })
+        return res;
+    }, []).reverse();
+}
+
+
+
+function snail(array) {
+    var results = [];
+
+    while (array.length > 0) {
+        results = results.concat(array.shift());
+
+        array.forEach(function (current) {
+            results.push(current.pop());
+        });
+
+        array.forEach(function (current) {
+            current.reverse();
+        });
+
+        array.reverse();
+    }
+
+    return results;
+}
